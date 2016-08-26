@@ -12,8 +12,7 @@ import org.bukkit.plugin.PluginDescriptionFile;
 
 public class SettingsManager {
 
-    private SettingsManager() {
-    }
+    private SettingsManager() { }
 
     static SettingsManager instance = new SettingsManager();
 
@@ -26,8 +25,8 @@ public class SettingsManager {
     FileConfiguration config;
     File cfile;
 
-    FileConfiguration prefixes;
-    File prfile;
+    FileConfiguration warps;
+    File wfile;
 
     public void setup(Plugin p) {
         cfile = new File(p.getDataFolder(), "config.yml");
@@ -40,36 +39,38 @@ public class SettingsManager {
         }
 
 
-        prfile = new File(p.getDataFolder(), "warps.yml");
+        wfile = new File(p.getDataFolder(), "Prefixes.yml");
 
 
-        if (!prfile.exists()) {
+
+        if (!wfile.exists()) {
             try {
-                prfile.createNewFile();
-            } catch (IOException e) {
-                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create prfile.yml!");
+                wfile.createNewFile();
+            }
+            catch (IOException e) {
+                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create Prefixes.yml!");
             }
         }
 
 
-        prefixes = YamlConfiguration.loadConfiguration(prfile);
+        warps = YamlConfiguration.loadConfiguration(wfile);
     }
+
 
 
     public void savePrefixes() {
         try {
-            prefixes.save(prfile);
-        } catch (IOException e) {
-            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save prfile.yml!");
+            warps.save(wfile);
+        }
+        catch (IOException e) {
+            Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save Prefixes.yml!");
         }
     }
-
-    public void reloadprefixes() {
-        prefixes = YamlConfiguration.loadConfiguration(prfile);
+    public void reloadPrefixes() {
+        warps = YamlConfiguration.loadConfiguration(wfile);
     }
-
-    public FileConfiguration getprefixes() {
-        return prefixes;
+    public FileConfiguration getPrefixes() {
+        return warps;
     }
 
 
@@ -80,7 +81,8 @@ public class SettingsManager {
     public void saveConfig() {
         try {
             config.save(cfile);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not save config.yml!");
         }
     }

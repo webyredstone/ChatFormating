@@ -1,7 +1,8 @@
-main:
+main: me.Web.ChatFormating.Main
 version: 1.0
-name:
+name: ChatFormating
 author: WebyRedstone
-description:
 
 commands:
+    setPrefix:
+     description: Set The prefix of a player
